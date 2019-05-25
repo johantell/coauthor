@@ -14,15 +14,13 @@ class CoworkerList {
       let items = try JSONDecoder().decode([Coworker].self, from: jsonData)
 
       return items
-    }
-    catch {
+    } catch {
       print("failed to read coauthor file")
       return []
     }
   }()
 
   init() {}
-
 
   func addCoworker(_ coworker: Coworker) {
     coworkersList.append(coworker)
@@ -52,8 +50,7 @@ class CoworkerList {
       let data = try encoder.encode(coworkersList)
       let jsonString = String(data: data, encoding: .utf8)!
       try "\(jsonString)\n".write(to: filePath, atomically: false, encoding: .utf8)
-    }
-    catch {
+    } catch {
       print("error writing to file")
     }
   }
