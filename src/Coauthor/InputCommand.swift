@@ -18,6 +18,8 @@ enum InputCommand {
     case "r": self = .remove(username: arguments[safe: 2])
     case "remove": self = .remove(username: arguments[safe: 2])
 
+    // case "set": self = .set(coauthors: arguments[2 ..< arguments.endIndex])
+
     case "h": self = .help
     case "help": self = .help
     case "--help": self = .help

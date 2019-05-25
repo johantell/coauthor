@@ -3,13 +3,23 @@
 import PackageDescription
 
 let packages = Package(
-    name: "coauthor",
-    products: [],
+    name: "Coauthor",
+    products: [
+      .executable(name: "coauthor", targets: ["Coauthor"])
+    ],
+    dependencies: [
+      .package(url: "https://github.com/Quick/Quick", from: "2.1.0"),
+      .package(url: "https://github.com/Quick/Nimble", from: "8.0.1"),
+    ],
     targets: [
         .target(
-            name: "coauthor",
-            path: ".",
-            sources: ["src"])
+            name: "Coauthor",
+            path: "./",
+            sources: ["src"]),
+        .testTarget(
+            name: "coauthorTests",
+            dependencies: ["Coauthor", "Quick", "Nimble"],
+            path: "./Tests")
     ]
 )
 

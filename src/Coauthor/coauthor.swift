@@ -8,19 +8,71 @@ struct Coworker {
 
 extension Coworker: Codable {}
 
-func initiateAddUser() -> Coworker {
-  print("Username:")
-  let username = readLine()
+class Coauthor {
+  init() {}
 
-  print("Full name:")
-  let name = readLine()
+  func runCommand(arguments: [String]?) {
 
-  print("Email:")
-  let email = readLine()
+    guard let args = arguments else { return }
 
-  return Coworker(
-    username: username ?? "",
-    name: name ?? "",
-    email: email ?? ""
-  )
+    let inputCommand = InputCommand(arguments: args)
+
+    switch inputCommand {
+    case .help:
+      print(helpSection)
+
+    case .add:
+      let user = initiateAddUser()
+      let coworkerList = CoworkerList()
+
+      coworkerList.addCoworker(user)
+
+      print(coworkerList.coworkers())
+
+    case let .remove(username):
+      guard let username = username else {
+        print("""
+              A username must be provided to `remove`:
+
+              coauthor remove [USERNAME]
+
+              Run `coauthor \(InputCommand.list)` to see available users
+              """)
+        return
+      }
+
+      let coworkerList = CoworkerList()
+      coworkerList.removeCoworker(username: username)
+
+    case .list:
+      let coworkerList = CoworkerList()
+
+      let listString = coworkerList.coworkers().map { coworker in
+        "[\(coworker.username)] \(coworker.name) <\(coworker.email)>"
+      }
+
+      print(listString.joined(separator: "\n"))
+
+    case let .unknown(command):
+      print("No command for `\(command)`.\n")
+      print(helpSection)
+    }
+  }
+
+  private func initiateAddUser() -> Coworker {
+    print("Username:")
+    let username = readLine()
+
+    print("Full name:")
+    let name = readLine()
+
+    print("Email:")
+    let email = readLine()
+
+    return Coworker(
+      username: username ?? "",
+      name: name ?? "",
+      email: email ?? ""
+    )
+  }
 }
