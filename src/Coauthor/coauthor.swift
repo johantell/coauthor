@@ -8,6 +8,8 @@ struct Coworker {
 
 extension Coworker: Codable {}
 
+extension Coworker: Hashable {}
+
 class Coauthor {
   init() {}
 
@@ -52,6 +54,22 @@ class Coauthor {
       }
 
       print(listString.joined(separator: "\n"))
+
+    case let .set(coauthors):
+      guard let coauthors = coauthors else { return }
+
+      let coworkerList = CoworkerList()
+      let authors = coworkerList.coworkers()
+        .filter { coauthors.contains($0.username) }
+
+      let gitCommitTemplate = GitCommitTemplate()
+
+      gitCommitTemplate.setCoauthors(authors)
+
+    case .clear:
+      let gitCommitTemplate = GitCommitTemplate()
+
+      gitCommitTemplate.setCoauthors([])
 
     case let .unknown(command):
       print("No command for `\(command)`.\n")

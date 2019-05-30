@@ -10,10 +10,12 @@ let packages = Package(
     dependencies: [
       .package(url: "https://github.com/Quick/Quick", from: "2.1.0"),
       .package(url: "https://github.com/Quick/Nimble", from: "8.0.1"),
+      .package(url: "https://github.com/JohnSundell/ShellOut", from: "2.2.0"),
     ],
     targets: [
         .target(
             name: "Coauthor",
+            dependencies: ["ShellOut"],
             path: "./",
             sources: ["src"]),
         .testTarget(
