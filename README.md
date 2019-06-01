@@ -23,6 +23,9 @@ activate a session by using `coauthor set [username [username ...]]`.
 % git commit
 ```
 
+`coauthor` comes with a few more command, use `coauthor help` to see a list of
+them all.
+
 ## Development
 
 ```sh
