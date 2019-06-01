@@ -1,0 +1,32 @@
+environment: &environment
+  working_directory: ~/coauthor
+  docker:
+    - image: norionomura/swift:50
+
+version: 2
+jobs:
+  test:
+    <<: *environment
+    steps:
+      - checkout
+      - run: swift test
+
+  lint:
+    <<: *environment
+    steps:
+      - checkout
+      - run: swiftlint
+
+  check_formatted:
+    <<: *environment
+    steps:
+      - checkout
+      - run: swiftformat --lint
+
+workflows:
+  version: 2
+  continious_integration:
+    jobs:
+      - test
+      - lint
+      - check_formatted
