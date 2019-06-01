@@ -1,15 +1,25 @@
 import Quick
 import Nimble
 
-import Coauthor
+@testable import CoauthorLib
 
 class CoauthorSpec : QuickSpec {
-  let coauthor = Coauthor()
-
   override func spec() {
-    it("") {
-      expect(coauthor.runCommand(["help"])).to(equal("hej"))
-      expect(2 + 2).to(equal(5))
+    let loggerMock = LoggerMock()
+    let coauthor = Coauthor(logger: loggerMock)
+
+    describe("help") {
+      it("prints a help message") {
+        coauthor.runCommand(arguments: ["help"])
+
+        expect(loggerMock.messages.count).to(equal(1))
+        expect(loggerMock.messages.first).to(contain("add"))
+        expect(loggerMock.messages.first).to(contain("list"))
+        expect(loggerMock.messages.first).to(contain("remove"))
+        expect(loggerMock.messages.first).to(contain("set"))
+        expect(loggerMock.messages.first).to(contain("clear"))
+        expect(loggerMock.messages.first).to(contain("help"))
+      }
     }
   }
 }

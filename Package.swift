@@ -5,6 +5,7 @@ import PackageDescription
 let packages = Package(
     name: "Coauthor",
     products: [
+      .library(name: "CoauthorLib", targets: ["CoauthorLib"]),
       .executable(name: "coauthor", targets: ["Coauthor"])
     ],
     dependencies: [
@@ -14,13 +15,16 @@ let packages = Package(
     ],
     targets: [
         .target(
-            name: "Coauthor",
+            name: "CoauthorLib",
             dependencies: ["ShellOut"],
-            path: "./",
-            sources: ["src"]),
+            path: "./Sources/CoauthorLib"),
+        .target(
+            name: "Coauthor",
+            dependencies: ["CoauthorLib"],
+            path: "./Sources/Coauthor"),
         .testTarget(
             name: "coauthorTests",
-            dependencies: ["Coauthor", "Quick", "Nimble"],
+            dependencies: ["CoauthorLib", "Quick", "Nimble"],
             path: "./Tests")
     ]
 )
