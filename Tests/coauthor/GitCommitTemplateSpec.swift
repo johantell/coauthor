@@ -1,27 +1,24 @@
-// import Quick
-// import Nimble
+import Quick
+import Nimble
 
-// import Coauthor
+@testable import CoauthorLib
 
-// class GitCommitTemplateSpec : QuickSpec {
+class GitCommitTemplateSpec : QuickSpec {
 
-//   override func spec() {
-//     it("updates Co-Authored-By in the passed") {
-//       let coauthors = [
-//         Coauthor(username: "johantell", name: "Johan Tell", email: "johan.tell@example.com"),
-//         Coauthor(username: "carlpehrson", name: "Carl Pehrson", email: "carl.pehrson@example.com"),
-//       ]
-//       let templatePath = URL()
-//       let gitCommitTemplate = GitCommitTemplate(templatePath: templatePath)
+  override func spec() {
+    it("updates Co-Authored-By in the passed fileManager") {
+      let coauthors = [
+        Coworker(username: "johantell", name: "Johan Tell", email: "johan.tell@example.com"),
+        Coworker(username: "carlpehrson", name: "Carl Pehrson", email: "carl.pehrson@example.com"),
+      ]
+      let fileManagerMock = FileManagerMock()
+      let gitCommitTemplate = GitCommitTemplate(fileManager: fileManagerMock)
 
-//       gitCommitTemplate.updateCoAuthors(coauthors: coauthors)
+      gitCommitTemplate.setCoauthors(coauthors)
 
-//       expect(gitCommitTemplate.contents).to(
-//         include("""
-//         Co-authored-By: Johan Tell <johan.tell@example.com>
-//         Co-authored-By: Carl Pehrson <carl.pehrson@example.com>
-//         """)
-//       )
-//     }
-//   }
-// }
+      let contents = fileManagerMock.currentFileContents
+      expect(contents).to(contain("Co-Authored-By: Johan Tell <johan.tell@example.com>"))
+      expect(contents).to(contain("Co-Authored-By: Carl Pehrson <carl.pehrson@example.com>"))
+    }
+  }
+}
