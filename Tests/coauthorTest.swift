@@ -1,9 +1,9 @@
-import Quick
 import Nimble
+import Quick
 
 @testable import CoauthorLib
 
-class CoauthorSpec : QuickSpec {
+class CoauthorSpec: QuickSpec {
   override func spec() {
     let loggerMock = LoggerMock()
     let coauthor = Coauthor(logger: loggerMock)

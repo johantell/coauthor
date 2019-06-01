@@ -2,7 +2,7 @@ import Foundation
 
 @testable import CoauthorLib
 
-class FileManagerMock : FileHandler {
+class FileManagerMock: FileHandler {
   typealias WriteMethod = (String) throws -> Void
 
   var currentFileContents: String
@@ -12,7 +12,7 @@ class FileManagerMock : FileHandler {
     initialContents: String = "",
     writeMethod: WriteMethod? = nil
   ) {
-    self.currentFileContents = initialContents
+    currentFileContents = initialContents
     self.writeMethod = writeMethod
   }
 

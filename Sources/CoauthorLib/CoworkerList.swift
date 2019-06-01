@@ -22,7 +22,7 @@ class CoworkerList {
   }
 
   func addCoworker(_ coworker: Coworker) {
-    guard coworkerList.allSatisfy({ $0.username != coworker.username}) else {
+    guard coworkerList.allSatisfy({ $0.username != coworker.username }) else {
       logger.log("Coworker with username `\(coworker.username)` already exist")
       return
     }

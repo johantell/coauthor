@@ -20,7 +20,7 @@ class GitCommitTemplate {
   //   }
   // }()
 
-  private let coauthorSectionIdentifierStart : String = "#--coauthor-start--"
+  private let coauthorSectionIdentifierStart: String = "#--coauthor-start--"
   private let coauthorSectionIdentifierEnd: String = "#--coauthor-end--"
 
   private let fileManager: FileHandler
@@ -32,8 +32,7 @@ class GitCommitTemplate {
   static func systemCommitTemplatePath() -> String? {
     do {
       return try shellOut(to: "git", arguments: ["config", "--get", "commit.template"])
-    }
-    catch {
+    } catch {
       return
     }
   }
@@ -47,7 +46,7 @@ class GitCommitTemplate {
 
   private func coauthorString(coauthors: [Coworker]) -> String {
     let coAuthoredByString = coauthors.map { author in
-      return "Co-Authored-By: \(author.name) <\(author.email)>"
+      "Co-Authored-By: \(author.name) <\(author.email)>"
     }.joined(separator: "\n")
 
     return """

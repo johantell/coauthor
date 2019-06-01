@@ -1,10 +1,9 @@
-import Quick
 import Nimble
+import Quick
 
 @testable import CoauthorLib
 
-class GitCommitTemplateSpec : QuickSpec {
-
+class GitCommitTemplateSpec: QuickSpec {
   override func spec() {
     it("updates Co-Authored-By in the passed fileManager") {
       let coauthors = [

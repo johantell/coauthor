@@ -4,13 +4,12 @@ class LoggerMock {
   public var messages: [String] = []
 }
 
-extension LoggerMock : Logger {
+extension LoggerMock: Logger {
   func log(_ message: String) {
     log(message, type: .normal)
   }
 
-  func log(_ message: String, type: LoggingType) {
+  func log(_ message: String, type _: LoggingType) {
     messages.append(message)
   }
 }
-

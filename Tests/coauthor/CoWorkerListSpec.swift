@@ -20,8 +20,8 @@ class CoworkerListSpec: QuickSpec {
         expect(coworkerList.coworkers()).to(equal([coworker]))
         expect(fileManager.currentFileContents).to(
           equal("""
-                [{"name":"Johan Tell","username":"johantell","email":"johan.tell@example.com"}]
-                """)
+          [{"name":"Johan Tell","username":"johantell","email":"johan.tell@example.com"}]
+          """)
         )
       }
 
@@ -41,8 +41,8 @@ class CoworkerListSpec: QuickSpec {
 
         expect(fileManager.currentFileContents).to(
           equal("""
-                [{"name":"Name 1","username":"name1","email":"email@email.com"},{"name":"Johan Tell","username":"johantell","email":"johan.tell@example.com"}]
-                """)
+          [{"name":"Name 1","username":"name1","email":"email@email.com"},{"name":"Johan Tell","username":"johantell","email":"johan.tell@example.com"}]
+          """)
         )
       }
 
@@ -66,11 +66,11 @@ class CoworkerListSpec: QuickSpec {
 
         expect(fileManager.currentFileContents).to(
           equal("""
-                [{"name":"Name 1","username":"name1","email":"email@email.com"}]
-                """)
+          [{"name":"Name 1","username":"name1","email":"email@email.com"}]
+          """)
         )
         expect(loggerMock.messages).to(equal([
-          "Coworker with username `name1` already exist"
+          "Coworker with username `name1` already exist",
         ]))
       }
 
@@ -91,8 +91,8 @@ class CoworkerListSpec: QuickSpec {
 
         expect(fileManager.currentFileContents).to(
           equal("""
-                [{"name":"Johan Tell","username":"johantell","email":"johan.tell@example.com"}]
-                """)
+          [{"name":"Johan Tell","username":"johantell","email":"johan.tell@example.com"}]
+          """)
         )
       }
     }
@@ -123,7 +123,7 @@ class CoworkerListSpec: QuickSpec {
 
         expect(fileManager.currentFileContents).to(equal("[]"))
         expect(loggerMock.messages).to(equal([
-          "No user with username `name1` could be found"
+          "No user with username `name1` could be found",
         ]))
       }
     }

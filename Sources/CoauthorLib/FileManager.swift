@@ -1,12 +1,12 @@
 import Foundation
 
-class FileManager : FileHandler {
+class FileManager: FileHandler {
   let fileURL: URL
 
   required init(filePath: String) {
     let absolutePath = NSString(string: filePath).expandingTildeInPath
 
-    self.fileURL = NSURL.fileURL(withPath: absolutePath)
+    fileURL = NSURL.fileURL(withPath: absolutePath)
   }
 
   func read() -> Data {
@@ -30,4 +30,3 @@ class FileManager : FileHandler {
     try string.write(to: fileURL, atomically: false, encoding: .utf8)
   }
 }
-
