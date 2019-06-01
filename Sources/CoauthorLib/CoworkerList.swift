@@ -40,7 +40,7 @@ class CoworkerList {
     coworkerList.removeAll(where: { $0.username == username })
 
     if coworkerList.count == listSize {
-      logger.log("No user with username `\(username)` could be found.", type: .error)
+      logger.log("No user with username `\(username)` could be found", type: .error)
       return
     }
 

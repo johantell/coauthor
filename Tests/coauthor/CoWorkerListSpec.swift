@@ -73,10 +73,59 @@ class CoworkerListSpec: QuickSpec {
           "Coworker with username `name1` already exist"
         ]))
       }
+
+      it("gracefully handles an empty storage file") {
+        let fileManager = FileManagerMock()
+        let loggerMock = LoggerMock()
+        let coworkerList = CoworkerList(
+          fileManager: fileManager,
+          logger: loggerMock
+        )
+        let coworker = Coworker(
+          username: "johantell",
+          name: "Johan Tell",
+          email: "johan.tell@example.com"
+        )
+
+        coworkerList.addCoworker(coworker)
+
+        expect(fileManager.currentFileContents).to(
+          equal("""
+                [{"name":"Johan Tell","username":"johantell","email":"johan.tell@example.com"}]
+                """)
+        )
+      }
     }
 
     describe("removeCoworker") {
-      xit("removes a coworker to the coworker storage file") {}
+      it("removes a coworker to the coworker storage file") {
+        let initialContents = """
+        [{"name":"Name 1","username":"name1","email":"email@email.com"}]
+        """
+        let fileManager = FileManagerMock(initialContents: initialContents)
+        let coworkerList = CoworkerList(fileManager: fileManager)
+
+        coworkerList.removeCoworker(username: "name1")
+
+        expect(fileManager.currentFileContents).to(equal("[]"))
+      }
+
+      it("prints an error when coworker doesn't exist") {
+        let initialContents = "[]"
+        let fileManager = FileManagerMock(initialContents: initialContents)
+        let loggerMock = LoggerMock()
+        let coworkerList = CoworkerList(
+          fileManager: fileManager,
+          logger: loggerMock
+        )
+
+        coworkerList.removeCoworker(username: "name1")
+
+        expect(fileManager.currentFileContents).to(equal("[]"))
+        expect(loggerMock.messages).to(equal([
+          "No user with username `name1` could be found"
+        ]))
+      }
     }
   }
 }
