@@ -22,6 +22,20 @@ class GitCommitTemplate {
     }
   }
 
+  func getCurrentCoauthorEmails() -> [String] {
+    return fileManager.readString()
+      .components(separatedBy: "\n")
+      .compactMap { string in
+        guard string.starts(with: "Co-Authored-By:") else { return nil }
+
+        let matchRange = string.range(of: "(?<=<).+(?=>)", options: .regularExpression)
+
+        guard let range = matchRange else { return nil }
+
+        return String(string[range])
+      }
+  }
+
   private func coauthorString(coauthors: [Coworker]) -> String {
     let coAuthoredByString = coauthors.map { author in
       "Co-Authored-By: \(author.name) <\(author.email)>"

@@ -9,6 +9,7 @@ public class Coauthor {
   remove [username]               Remove a stored coworker.
 
   set [username, [username, ...]] Set a list of coauthors.
+  current                         Print all active coworkers
   clear                           Clear all coauthors.
 
   help                            Show this help section.
@@ -67,6 +68,26 @@ public class Coauthor {
       }
 
       setCoauthors(coauthors: coauthors)
+
+    case .current:
+      let gitCommitTemplate = GitCommitTemplate(
+        fileManager: gitCommitTemplateFileManager
+      )
+      let currentCoworkerEmails = gitCommitTemplate.getCurrentCoauthorEmails()
+
+      guard currentCoworkerEmails.count > 0 else {
+        logger.log("There is no active coworkers")
+        return
+      }
+
+      let coworkerList = CoworkerList(fileManager: coauthorStorageFileHandler)
+      let activeCoauthors = coworkerList.coworkers().filter { currentCoworkerEmails.contains($0.email) }
+
+      let coauthorsString = activeCoauthors.map { coauthor in
+        "[\(coauthor.username)] \(coauthor.name) <\(coauthor.email)>"
+      }.joined(separator: "\n")
+
+      logger.log(coauthorsString)
 
     case .clear:
       clearCoauthors()

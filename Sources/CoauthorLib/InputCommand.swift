@@ -3,6 +3,7 @@ enum InputCommand {
   case help
   case list
   case clear
+  case current
   case set(coauthors: [String]?)
   case remove(username: String?)
   case unknown(command: String)
@@ -22,8 +23,10 @@ enum InputCommand {
 
     case "set": self = .set(coauthors: Array(arguments[2...]))
 
-    case "c": self = .clear
     case "clear": self = .clear
+
+    case "c": self = .current
+    case "current": self = .current
 
     case "h": self = .help
     case "help": self = .help
