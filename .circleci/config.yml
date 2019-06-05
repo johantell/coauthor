@@ -1,7 +1,7 @@
 environment: &environment
   working_directory: ~/coauthor
   docker:
-    - image: norionomura/swift:50
+    - image: norionomura/swift:501
 
 version: 2
 jobs:
