@@ -1,3 +1,7 @@
+**Important notice**: This repo is deprecated in favor of
+[carlpehrson/coauthor](https://github.com/carlpehrson/coauthor) which is a
+rewrite in rust done to make it easier for multi arc releases.
+
 # coauthor
 Co-author provides a way to automatically add friends or coworkers as co-authors
 to git commits when doing pairing or mob sessions.
